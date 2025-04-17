@@ -1,7 +1,9 @@
 package main
 
 import (
+	"basic/task2/channel"
 	"basic/task2/goroutine"
+	"basic/task2/object"
 	"basic/task2/pointer"
 	"fmt"
 	"sync"
@@ -41,5 +43,36 @@ func main() {
 		},
 	}
 	goroutine.Scheduler(tasks)
+	// 5.题目
+	// 创建矩形和圆形实例
+	rect := object.Rectangle{Width: 5, Height: 3}
+	circle := object.Circle{Radius: 4}
+	// 使用格式化输出保留两位小数
+	fmt.Printf("Rectangle Area: %.2f\n", rect.Area())
+	fmt.Printf("Rectangle Perimeter: %.2f\n", rect.Perimeter())
+	fmt.Printf("Circle Area: %.2f\n", circle.Area())
+	fmt.Printf("Circle Perimeter: %.2f\n", circle.Perimeter())
+	// 6.题目
+	// 创建员工实例并初始化
+	newEmployee := object.Employee{
+		Person: object.Person{
+			Name: "张三",
+			Age:  28,
+		},
+		EmployeeID: "1001",
+	}
+	// 调用方法输出信息
+	newEmployee.PrintInfo()
+	// 7.题目
+	// 初始化通道和等待组
+	ch := make(chan int)
+	// 启动生产者协程
+	wg.Add(1)
+	go channel.Producer(ch, &wg) // 注意传递WaitGroup指针
 
+	// 启动消费者协程
+	wg.Add(1)
+	go channel.Consumer(ch, &wg)
+	// 等待所有协程完成
+	wg.Wait()
 }
