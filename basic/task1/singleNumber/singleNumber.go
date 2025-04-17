@@ -15,7 +15,6 @@ package singleNumber
 输出：1
 */
 
-// go 中用大小写区分private和public
 func SingleNumber(nums []int) int {
 	countMap := make(map[int]int)
 	// 遍历数组，统计每个元素出现的次数，并存入 map
@@ -34,13 +33,4 @@ func SingleNumber(nums []int) int {
 		}
 	}
 	return 0
-}
-
-// 方式二
-func singleNumber2(nums []int) int {
-	result := 0
-	for _, num := range nums {
-		result ^= num
-	}
-	return result
 }
