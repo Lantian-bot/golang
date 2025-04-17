@@ -101,4 +101,5 @@ func main() {
 	fmt.Println(e, f, g)
 	fmt.Println(h, k, j)
 	method()
+
 }

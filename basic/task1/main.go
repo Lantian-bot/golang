@@ -1,8 +1,12 @@
 package main
 
 import (
+	"basic/task1/merge"
 	"basic/task1/mergeTwoLists"
+	"basic/task1/mySqrt"
 	"basic/task1/permute"
+	"basic/task1/removeDuplicates"
+	"basic/task1/reverseString"
 	"basic/task1/rob"
 	"basic/task1/singleNumber"
 	"fmt"
@@ -35,5 +39,20 @@ func main() {
 	var nums5 = [3]int{1, 2, 3}
 	s5 := permute.Permute(nums5[:])
 	fmt.Println(s5)
-
+	// 5.反转字符串
+	var s6 = []byte{'h', 'e', 'l', 'l', 'o'}
+	fmt.Println(string(s6))
+	s := reverseString.ReverseString(s6)
+	fmt.Println(string(s))
+	// 6.X的平方根
+	x := mySqrt.MySqrt(11)
+	fmt.Println(x)
+	// 7.删除有序数组中的重复项
+	var nums7 = [10]int{0, 0, 1, 1, 1, 2, 2, 3, 3, 4}
+	s7 := removeDuplicates.RemoveDuplicates(nums7[:])
+	fmt.Println(s7)
+	// 8.合并区间
+	var intervals = [][]int{{1, 3}, {2, 6}, {8, 10}, {15, 18}}
+	s8 := merge.Merge(intervals[:])
+	fmt.Println(s8)
 }
