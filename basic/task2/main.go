@@ -69,10 +69,20 @@ func main() {
 	// 启动生产者协程
 	wg.Add(1)
 	go channel.Producer(ch, &wg) // 注意传递WaitGroup指针
-
 	// 启动消费者协程
 	wg.Add(1)
 	go channel.Consumer(ch, &wg)
 	// 等待所有协程完成
 	wg.Wait()
+	// 8.题目
+	const bufferSize = 10 // 缓冲通道容量
+	ch2 := make(chan int, bufferSize)
+	wg.Add(2) // 设置需要等待2个协程
+	// 启动生产者协程
+	go channel.Bufferproducer(ch2, &wg)
+	// 启动消费者协程
+	go channel.Bufferconsumer(ch2, &wg)
+	wg.Wait() // 等待所有协程完成
+	fmt.Println("所有数据消费完成")
+
 }
