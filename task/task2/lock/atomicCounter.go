@@ -17,7 +17,7 @@ type AtomicCounter struct {
 
 // Increment 方法使用互斥锁保护计数器递增操作
 
-func (c *Counter) AtomicIncrement() {
+func (c *AtomicCounter) AtomicIncrement() {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.val++
@@ -25,7 +25,7 @@ func (c *Counter) AtomicIncrement() {
 
 func main() {
 	var wg sync.WaitGroup
-	counter := &Counter{} // 创建计数器实例
+	counter := &AtomicCounter{} // 创建计数器实例
 
 	// 启动10个协程
 	for i := 0; i < 10; i++ {
@@ -34,11 +34,11 @@ func main() {
 			defer wg.Done()
 			// 每个协程执行1000次递增操作
 			for j := 0; j < 1000; j++ {
-				counter.Increment()
+				counter.AtomicIncrement()
 			}
 		}()
 	}
-
-	wg.Wait()                                        // 等待所有协程完成
+	// 等待所有协程完成
+	wg.Wait()
 	fmt.Println("Final counter value:", counter.val) // 输出最终结果
 }

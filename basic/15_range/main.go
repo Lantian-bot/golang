@@ -1,20 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
+
+func addData(ch chan int) {
+	size := cap(ch)
+	for i := 0; i < size; i++ {
+		ch <- i
+		time.Sleep(1 * time.Second)
+	}
+	close(ch)
+}
 
 func main() {
-	hash := map[string]int{
-		"aba":     1,
-		"fe":      2,
-		"zi":      3,
-		"counter": 4,
-	}
+	ch := make(chan int, 10)
 
-	for key := range hash {
-		fmt.Printf("key=%s, value=%d\n", key, hash[key])
-	}
+	go addData(ch)
+	fmt.Println(ch)
 
-	for key, value := range hash {
-		fmt.Printf("key=%s, value=%d\n", key, value)
+	for i := range ch {
+		fmt.Println(i)
 	}
 }
